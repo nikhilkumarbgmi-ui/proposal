@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Just One Question ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  font-family:Arial, sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+  color:white;
+  background:black;
+}
+
+/* Samsung Mobile Background FIX */
+@media (max-width: 768px){
+  body{
+    background:
+      linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+      url("Heart.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+
+/* Heartbeat box */
+.container{
+  background: rgba(0,0,0,0.55);
+  padding:25px;
+  border-radius:20px;
+  width:90%;
+  max-width:330px;
+  text-align:center;
+  z-index:10;
+  animation: beat 1.5s infinite;
+}
+
+@keyframes beat{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.05)}
+  100%{transform:scale(1)}
+}
+
+button{
+  padding:12px 25px;
+  border-radius:30px;
+  border:none;
+  font-size:16px;
+  margin:10px;
+  cursor:pointer;
+}
+
+.yes{background:#00ffb3}
+.no{
+  background:#ff3d3d;
+  position:absolute;
+}
+
+/* Rose petals */
+.petal{
+  position:absolute;
+  top:-30px;
+  font-size:22px;
+  animation: fall 7s linear forwards;
+  z-index:2;
+}
+
+@keyframes fall{
+  0%{transform:translateX(0) rotate(0deg);opacity:1}
+  100%{transform:translateX(80px) translateY(110vh) rotate(360deg);opacity:0}
+}
+</style>
+</head>
+
+<body onclick="enableMusic()">
+
+<!-- Samsung autoplay FIX: muted first -->
+<audio id="music" loop muted autoplay>
+  <source src="khawab.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+  <h2 id="text">Will you be mine forever? 💍❤️</h2>
+  <button class="yes" onclick="yesClicked()">YES 😍</button>
+  <button class="no" id="noBtn" onmouseover="noClicked()">NO 😏</button>
+  <p style="font-size:12px;opacity:0.7;">Tap anywhere 💗</p>
+</div>
+
+<script>
+let unmuted = false;
+
+/* Samsung music unlock */
+function enableMusic(){
+  const m = document.getElementById("music");
+  if(!unmuted){
+    m.muted = false;
+    m.volume = 0.4;
+    m.play();
+    unmuted = true;
+  }
+}
+
+/* NO button escape */
+function noClicked(){
+  const b = document.getElementById("noBtn");
+  b.style.left = Math.random()*80 + "%";
+  b.style.top = Math.random()*80 + "%";
+  document.getElementById("text").innerText =
+    "NO bol ke bhi bach nahi paogi 😏❤️";
+}
+
+/* YES clicked */
+function yesClicked(){
+  document.body.innerHTML =
+  "<h1 style='color:white;text-align:center;'>She Said YES 💍❤️<br>Forever 😍</h1>";
+}
+
+/* Rose petals generator */
+setInterval(()=>{
+  const p=document.createElement("div");
+  p.className="petal";
+  p.innerHTML="🌹";
+  p.style.left=Math.random()*100+"vw";
+  p.style.fontSize=(18+Math.random()*20)+"px";
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(),7000);
+},800);
+</script>
+
+</body>
+</html>
